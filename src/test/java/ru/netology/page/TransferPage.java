@@ -20,11 +20,10 @@ public class TransferPage {
 
         transferHead.shouldBe(visible, Duration.ofSeconds(15));
     }
-    public DashboardPage validTransfer() {
-        transferAmount.setValue("5000");
+    public DashboardPage validTransfer(String amount) {
+        transferAmount.setValue(amount);
         transferFrom.setValue(DataHelper.getSecondCardInfo().getNumber());
         transferButton.click();
         return new DashboardPage();
     }
-
 }

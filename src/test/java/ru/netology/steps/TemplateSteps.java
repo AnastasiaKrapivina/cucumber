@@ -27,7 +27,6 @@ public class TemplateSteps {
     private static DashboardPage dashboardPage;
     private static VerificationPage verificationPage;
     private static TransferPage transferPage;
-    private static DataHelper dataHelper;
 
 
     @Пусть("открыта страница с формой авторизации {string}")
@@ -57,13 +56,10 @@ public class TemplateSteps {
 
     @Когда("пользователь переводит 5 000 рублей с карты с номером 5559 0000 0000 0002 на свою 1 карту")
     public void transferMoneyBetweenOwnCards() {
-        dashboardPage.selectCardToTransfer(0);
-        $("[data-test-id='amount'] input").setValue("5000");
-        $("[data-test-id='from'] input").setValue(dataHelper.getFirstCardInfo().getNumber());
-        $("[data-test-id='action-transfer']").click();
-
-//        transferPage.validTransfer();
+        transferPage = dashboardPage.selectCardToTransfer(0);
+        transferPage.validTransfer("5000");
     }
+
     @Тогда("баланс его 1 карты из списка на главной странице должен стать 15 000 рублей")
     public void expectedFirstCardBalance() {
         assertEquals(15000, dashboardPage.getCardBalance(0));
