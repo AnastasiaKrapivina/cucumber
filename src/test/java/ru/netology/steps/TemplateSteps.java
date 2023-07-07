@@ -54,14 +54,14 @@ public class TemplateSteps {
         verificationPage.verifyCodeIsInvalid();
     }
 
-    @Когда("пользователь переводит 5 000 рублей с карты с номером 5559 0000 0000 0002 на свою 1 карту")
-    public void transferMoneyBetweenOwnCards() {
+    @Когда("пользователь переводит {string} рублей с карты с номером 5559 0000 0000 0002 на свою 1 карту")
+    public void transferMoneyBetweenOwnCards(String amount) {
         transferPage = dashboardPage.selectCardToTransfer(0);
-        transferPage.validTransfer("5000");
+        transferPage.validTransfer(amount);
     }
 
-    @Тогда("баланс его 1 карты из списка на главной странице должен стать 15 000 рублей")
-    public void expectedFirstCardBalance() {
-        assertEquals(15000, dashboardPage.getCardBalance(0));
+    @Тогда("баланс его 1 карты из списка на главной странице должен стать {int} рублей")
+    public void expectedFirstCardBalance(int expectedBalance) {
+        assertEquals(expectedBalance, dashboardPage.getCardBalance(0));
     }
 }
